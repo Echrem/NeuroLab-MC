@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">NeuroLab-MC system overview</title>
+  <desc id="desc">Minecraft world cues feed a connectome-backed sparse LIF network. A bounded embodiment adapter returns motor influence to a mob, while the HUD, connectome explorer, and JSONL telemetry expose separate observations.</desc>
+  <defs>
+    <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#101a28"/><stop offset="1" stop-color="#080e17"/></linearGradient>
+    <linearGradient id="brain" x2="1" y2="1"><stop stop-color="#17465a"/><stop offset="1" stop-color="#172d50"/></linearGradient>
+    <linearGradient id="teal" x2="1"><stop stop-color="#4de0d0"/><stop offset="1" stop-color="#4bb6ed"/></linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#5edbcc"/></marker>
+    <style>
+      text{font-family:Inter,Segoe UI,Arial,sans-serif;fill:#e8f1fb}.muted{fill:#9eb0c4}.eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;fill:#70ddd2}.head{font-size:22px;font-weight:700}.body{font-size:14px}.tiny{font-size:12px}.line{stroke:#5edbcc;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.node{fill:#70ddd2;filter:url(#glow)}
+    </style>
+  </defs>
+  <rect width="1200" height="520" rx="28" fill="url(#bg)"/>
+  <path d="M32 78H1168" stroke="#26384c"/>
+  <text x="52" y="45" class="eyebrow">NEUROLAB-MC · SYSTEM MAP</text>
+  <text x="52" y="67" class="tiny muted">Connectome-informed control with observable, explicitly modeled game-world adapters</text>
+
+  <g transform="translate(50 130)">
+    <rect width="235" height="260" rx="18" fill="#121f2d" stroke="#304256"/>
+    <text x="22" y="34" class="eyebrow">01 · WORLD</text><text x="22" y="67" class="head">Minecraft cues</text>
+    <g class="body muted"><text x="24" y="111">◉  Left / center / right light</text><text x="24" y="146">◉  Looming, touch &amp; sound</text><text x="24" y="181">◉  Food, water &amp; block contact</text><text x="24" y="216">◉  Rewards, pain &amp; needs</text></g>
+    <rect x="20" y="232" width="195" height="1" fill="#304256"/><text x="22" y="251" class="tiny muted">Sensory channels are game proxies</text>
+  </g>
+
+  <path d="M292 260H336" class="line"/>
+
+  <g transform="translate(348 112)">
+    <rect width="330" height="296" rx="22" fill="url(#brain)" stroke="#39879a" stroke-width="1.5"/>
+    <text x="24" y="36" class="eyebrow">02 · NEURAL CORE</text><text x="24" y="71" class="head">Male CNS connectome</text>
+    <text x="24" y="96" class="body muted">Sparse, event-driven LIF simulation</text>
+    <g stroke="#3bb8b8" stroke-opacity=".55" stroke-width="1.2">
+      <path d="M65 151 114 132 162 165 205 131 256 155M65 151 92 201 162 165 180 218 256 155M114 132 130 239 180 218 205 131M92 201 130 239 224 237 256 155"/>
+    </g>
+    <g><circle cx="65" cy="151" r="5" class="node"/><circle cx="114" cy="132" r="5" class="node"/><circle cx="162" cy="165" r="6" fill="#ffb66d" filter="url(#glow)"/><circle cx="205" cy="131" r="4" class="node"/><circle cx="256" cy="155" r="5" class="node"/><circle cx="92" cy="201" r="4" class="node"/><circle cx="180" cy="218" r="5" class="node"/><circle cx="130" cy="239" r="4" class="node"/><circle cx="224" cy="237" r="4" class="node"/></g>
+    <text x="24" y="273" class="tiny muted">Directed edges · bounded plasticity · sampled activity</text>
+  </g>
+
+  <path d="M685 260H729" class="line"/>
+
+  <g transform="translate(742 130)">
+    <rect width="205" height="260" rx="18" fill="#121f2d" stroke="#304256"/>
+    <text x="20" y="34" class="eyebrow">03 · EMBODIMENT</text><text x="20" y="67" class="head">Body adapter</text>
+    <g class="body muted"><text x="21" y="111">↗  Turn · forward · lift</text><text x="21" y="146">↗  Assisted steering</text><text x="21" y="181">↗  Collision-aware movement</text><text x="21" y="216">↗  Mob-specific constraints</text></g>
+    <rect x="18" y="232" width="169" height="1" fill="#304256"/><text x="20" y="251" class="tiny muted">Not a direct neuron-to-key mapping</text>
+  </g>
+
+  <path d="M954 260H997" class="line"/>
+
+  <g transform="translate(1008 130)">
+    <rect width="145" height="260" rx="18" fill="#121f2d" stroke="#304256"/>
+    <text x="17" y="34" class="eyebrow">04 · INSPECT</text>
+    <rect x="17" y="58" width="111" height="43" rx="8" fill="#192c3b" stroke="#345469"/><text x="28" y="84" class="body">NeuroView HUD</text>
+    <rect x="17" y="112" width="111" height="43" rx="8" fill="#192c3b" stroke="#345469"/><text x="28" y="138" class="body">3D Connectome</text>
+    <rect x="17" y="166" width="111" height="43" rx="8" fill="#192c3b" stroke="#345469"/><text x="28" y="192" class="body">JSONL logs</text>
+    <text x="18" y="239" class="tiny muted">Signals ≠ proof</text><text x="18" y="255" class="tiny muted">of biological behavior</text>
+  </g>
+
+  <path d="M844 402v42H165v-42" stroke="#467687" stroke-width="1.5" stroke-dasharray="6 6" fill="none" marker-end="url(#arrow)"/>
+  <rect x="365" y="430" width="278" height="32" rx="16" fill="#12242e" stroke="#2b6a70"/>
+  <text x="390" y="451" class="tiny" fill="#91e8db">Motor output returns to the simulated mob</text>
+  <text x="52" y="493" class="tiny muted">A research instrument: biological wiring data, game-derived inputs, and engineering adapters remain separately inspectable.</text>
+</svg>

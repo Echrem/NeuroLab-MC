@@ -1,0 +1,90 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+    id 'net.minecraftforge.gradle' version '7.0.40'
+}
+
+version = project.mod_version
+group = project.maven_group
+base { archivesName = project.archives_base_name }
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+
+minecraft {
+    mappings channel: 'official', version: project.minecraft_version
+
+    runs {
+        configureEach {
+            workingDir = project.file('run')
+            mods {
+                neurolab {
+                    source sourceSets.main
+                }
+            }
+        }
+        client {}
+        server { args '--nogui' }
+        gameTestServer {
+            workingDir = project.file('build/gametest')
+            systemProperties.put('forge.enabledGameTestNamespaces', 'neurolab')
+        }
+    }
+}
+
+repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    mavenCentral()
+}
+
+dependencies {
+    implementation minecraft.dependency("net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}")
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+sourceSets.main.java.srcDirs = ['src/main/java', 'src/client/java']
+
+// Forge 52 scans a mod as one classpath root, including its metadata and classes.
+sourceSets.main.output.resourcesDir = sourceSets.main.java.destinationDirectory.get().asFile
+tasks.named('processResources') { dependsOn tasks.named('compileJava') }
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+
+test { useJUnitPlatform() }
+
+tasks.matching { it.name == 'runGameTestServer' }.configureEach {
+    doFirst {
+        ext.gameTestStartedAt = System.currentTimeMillis()
+    }
+    doLast {
+        def testLog = project.file('build/gametest/logs/latest.log')
+        if (!testLog.isFile() || testLog.lastModified() < gameTestStartedAt) {
+            throw new GradleException('Forge GameTest log is missing or stale; refusing to report a successful test run.')
+        }
+        def output = testLog.getText('UTF-8')
+        if (!(output =~ /All \d+ required tests passed/).find() || output.contains('Some tests failed')) {
+            throw new GradleException('Forge GameTest did not report that all required tests passed. Inspect build/gametest/logs/latest.log.')
+        }
+    }
+}
+
+processResources {
+    inputs.property 'mod_version', project.mod_version
+    filesMatching('META-INF/mods.toml') {
+        expand mod_version: project.mod_version
+    }
+}
+
+jar {
+    from('LICENSE') { rename { 'LICENSE_neurolab' } }
+    from('DATA_PROVENANCE.md')
+}

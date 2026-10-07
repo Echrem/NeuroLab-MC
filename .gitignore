@@ -1,0 +1,10 @@
+.gradle/
+build/
+run/
+eclipse/
+.idea/
+*.iml
+logs/
+__pycache__/
+output/
+.playwright-cli/

@@ -1,0 +1,8 @@
+{
+  "multipart": [
+    { "when": { "facing": "north" }, "apply": { "model": "neurolab:block/petri_dish" } },
+    { "when": { "facing": "east" }, "apply": { "model": "neurolab:block/petri_dish", "y": 90 } },
+    { "when": { "facing": "south" }, "apply": { "model": "neurolab:block/petri_dish", "y": 180 } },
+    { "when": { "facing": "west" }, "apply": { "model": "neurolab:block/petri_dish", "y": 270 } }
+  ]
+}
